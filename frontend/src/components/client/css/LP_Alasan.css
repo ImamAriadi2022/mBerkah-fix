@@ -18,6 +18,7 @@
   margin-bottom: 10px;
   position: relative;
   padding-left: 20px;
+  cursor: pointer;
 }
 
 .alasan-section li::before {
@@ -25,6 +26,18 @@
   position: absolute;
   left: 0;
   color: #007bff;
+}
+
+.alasan-section .detail {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+  opacity: 0;
+}
+
+.alasan-section .detail.show {
+  max-height: 500px; /* Adjust as needed */
+  opacity: 1;
 }
 
 .alasan-section img {
