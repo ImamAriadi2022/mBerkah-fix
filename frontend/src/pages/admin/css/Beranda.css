@@ -1,14 +1,8 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-}
+
 
 .beranda-container {
   display: flex;
   height: 100vh; /* Memastikan elemen mengisi tinggi layar */
-  overflow: hidden; /* Menghindari tumpang tindih akibat scroll */
 }
 
 .sidebar {
@@ -28,5 +22,5 @@ body, html {
   flex: 1; /* Dashboard mengambil sisa ruang */
   background-color: #f8f9fa; /* Warna latar belakang dashboard */
   padding: 20px;
-  overflow-y: auto; /* Tambahkan scroll jika konten terlalu tinggi */
+  overflow: hidden; /* Menghindari scroll */
 }
