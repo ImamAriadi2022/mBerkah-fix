@@ -1,0 +1,34 @@
+.alasan-section {
+  padding: 50px 0;
+  background-color: #f8f9fa;
+}
+
+.alasan-section h2 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.alasan-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.alasan-section li {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.alasan-section li::before {
+  content: '✔';
+  position: absolute;
+  left: 0;
+  color: #007bff;
+}
+
+.alasan-section img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
