@@ -12,6 +12,7 @@ import ContactPerson from './pages/client/ContactPerson'
 import Login from './pages/admin/Login';
 import Beranda from './pages/admin/Beranda'
 import JasaSect from './pages/admin/JasaSect';
+import TentangSect from './pages/admin/TentangSect';
 
 import './App.css';
 
@@ -32,6 +33,7 @@ function App() {
           <Route exact path="/admin" element={<Login />} />
           <Route exact path="/admin-beranda" element={<Beranda />} />
           <Route exact path="/admin-jasa" element={<JasaSect />} />
+          <Route exact path="/admin-tentang" element={<TentangSect />} />
           {/* Tambahkan rute lainnya di sini */}
         </Routes>
       </div>

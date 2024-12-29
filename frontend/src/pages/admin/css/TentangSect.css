@@ -1,0 +1,49 @@
+.container-fluid {
+  padding: 0;
+}
+
+.sidebar {
+  background-color: #f8f9fa;
+  height: 100vh;
+  padding-top: 20px;
+}
+
+.sidebar .nav-link {
+  color: #000;
+  font-weight: bold;
+  padding: 10px 20px;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #e9ecef;
+  color: #007bff;
+}
+
+.main-content {
+  padding: 20px;
+}
+
+.main-content h1 {
+  margin-bottom: 20px;
+}
+
+.main-content form {
+  margin-bottom: 20px;
+}
+
+.main-content ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.main-content ul li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.main-content ul li button {
+  margin-left: 10px;
+}
