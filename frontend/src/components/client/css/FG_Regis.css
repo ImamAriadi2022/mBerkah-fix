@@ -1,0 +1,32 @@
+.form-container {
+  max-width: 800px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.form-control {
+  border-radius: 0.25rem;
+}
+
+button {
+  margin-top: 1rem;
+}
+
+.modal-body {
+  text-align: center;
+}
