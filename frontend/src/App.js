@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/client/LandingPage';
 import ArtList from './pages/client/ArtList';
 import FormRegis from './pages/client/FormRegis';
+import PageGallery from './pages/client/Gallery';
 
 import './App.css';
 
@@ -14,7 +15,7 @@ function App() {
           <Route exact path="/" element={<LandingPage />} />
           <Route exact path = "/search" element={<ArtList/>} />
           <Route exact path = "/register" element={<FormRegis/>} />
-          
+          <Route exact path = "/gallery" element={<PageGallery/>} />
           {/* Add other routes here */}
         </Routes>
       </div>
