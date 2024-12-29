@@ -4,6 +4,16 @@ import { FaInstagram, FaYoutube, FaFacebook, FaWhatsapp } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/Footer.css';
 
+const socialLinks = {
+  instagram: 'https://www.instagram.com/yourprofile',
+  youtube: 'https://www.youtube.com/yourchannel',
+  facebook: 'https://www.facebook.com/yourpage',
+  whatsapp: 'https://wa.me/yourwhatsappnumber'
+};
+
+const email = 'info@agency.com';
+const location = 'Jl. Contoh No. 123, Jakarta';
+
 const Footer = () => {
   return (
     <footer className="footer-section">
@@ -12,12 +22,12 @@ const Footer = () => {
           <Col md={4} className="footer-col">
             <h4>Agency Title</h4>
             <div className="social-icons">
-              <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
-              <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer"><FaYoutube /></a>
-              <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
-              <a href="https://www.whatsapp.com" target="_blank" rel="noopener noreferrer"><FaWhatsapp /></a>
+              <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
+              <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer"><FaYoutube /></a>
+              <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
+              <a href={socialLinks.whatsapp} target="_blank" rel="noopener noreferrer"><FaWhatsapp /></a>
             </div>
-            <p>&copy; 2024 Developed by <a href="https://creativebraind.com" target="_blank" rel="noopener noreferrer">CreativeBraind</a></p>
+            <p>&copy; 2024 Developed by <a href="https://cbraind.my.id" target="_blank" rel="noopener noreferrer">CreativeBraind</a></p>
           </Col>
           <Col md={4} className="footer-col">
             <h4>Tentang Kami</h4>
@@ -25,8 +35,8 @@ const Footer = () => {
           </Col>
           <Col md={4} className="footer-col">
             <h4>Kontak</h4>
-            <p>Email: info@agency.com</p>
-            <p>Lokasi: Jl. Contoh No. 123, Jakarta</p>
+            <p>Email: <a href={`mailto:${email}`}>{email}</a></p>
+            <p>Lokasi: {location}</p>
           </Col>
         </Row>
       </Container>
