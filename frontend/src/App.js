@@ -1,15 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/client/LandingPage';
-import ArtList from './pages/client/ArtList';
+import ArtList from './pages/client/artList';
 import FormRegis from './pages/client/FormRegis';
 import PageGallery from './pages/client/Gallery';
 import ContactPerson from './pages/client/ContactPerson'
 
 
+
 // ini buat admin
 import Login from './pages/admin/Login';
 import Beranda from './pages/admin/Beranda'
+import JasaSect from './pages/admin/JasaSect';
 
 import './App.css';
 
@@ -29,6 +31,7 @@ function App() {
           {/* ini buat admin */}
           <Route exact path="/admin" element={<Login />} />
           <Route exact path="/admin-beranda" element={<Beranda />} />
+          <Route exact path="/admin-jasa" element={<JasaSect />} />
           {/* Tambahkan rute lainnya di sini */}
         </Routes>
       </div>
