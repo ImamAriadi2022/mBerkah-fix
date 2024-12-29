@@ -1,0 +1,32 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.beranda-container {
+  display: flex;
+  height: 100vh; /* Memastikan elemen mengisi tinggi layar */
+  overflow: hidden; /* Menghindari tumpang tindih akibat scroll */
+}
+
+.sidebar {
+  width: 250px; /* Tentukan lebar tetap sidebar */
+  background-color: #343a40; /* Warna sidebar */
+  color: white;
+  padding: 15px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1000;
+}
+
+.dashboard {
+  margin-left: 250px; /* Sesuaikan dengan lebar sidebar */
+  flex: 1; /* Dashboard mengambil sisa ruang */
+  background-color: #f8f9fa; /* Warna latar belakang dashboard */
+  padding: 20px;
+  overflow-y: auto; /* Tambahkan scroll jika konten terlalu tinggi */
+}

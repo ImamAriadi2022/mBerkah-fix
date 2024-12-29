@@ -1,0 +1,27 @@
+.dashboard-container {
+  height: 100vh; /* Mengisi tinggi layar penuh */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden; /* Menghindari scroll */
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.dashboard-image {
+  margin-top: 20px;
+  max-width: 100%;
+  height: auto;
+  max-height: 400px; /* Tentukan tinggi maksimal gambar */
+  border-radius: 10px; /* Tambahkan border-radius untuk tampilan lebih rapi */
+}
