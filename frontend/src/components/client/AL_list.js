@@ -33,7 +33,7 @@ const AL_list = () => {
 
   return (
     <Container className="my-5">
-      <h2 className="text-center mb-4">Art List</h2>
+      <h2 className="text-center mb-4">Daftar ART</h2>
       <Form.Control
         type="text"
         placeholder="Cari berdasarkan profesi atau umur"
@@ -42,21 +42,27 @@ const AL_list = () => {
         className="mb-4"
       />
       <Row>
-        {filteredARTs.map(art => (
-          <Col md={4} key={art.id} className="mb-4">
-            <Card className="h-100">
-              <Card.Img variant="top" src={art.image} alt={art.name} />
-              <Card.Body>
-                <Card.Title>{art.name}</Card.Title>
-                <Card.Text><strong>Alamat Asal:</strong> {art.address}</Card.Text>
-                <Card.Text><strong>Usia:</strong> {art.age}</Card.Text>
-                <Card.Text><strong>Profesi:</strong> {art.profession}</Card.Text>
-                <Card.Text><strong>Bersedia Kerja di:</strong> {art.willingToWork}</Card.Text>
-                <Button variant="primary" onClick={() => handleShow(art)}>Detail Profil</Button>
-              </Card.Body>
-            </Card>
+        {filteredARTs.length > 0 ? (
+          filteredARTs.map(art => (
+            <Col md={4} key={art.id} className="mb-4">
+              <Card className="h-100">
+                <Card.Img variant="top" src={art.image} alt={art.name} />
+                <Card.Body>
+                  <Card.Title>{art.name}</Card.Title>
+                  <Card.Text><strong>Alamat Asal:</strong> {art.address}</Card.Text>
+                  <Card.Text><strong>Usia:</strong> {art.age}</Card.Text>
+                  <Card.Text><strong>Profesi:</strong> {art.profession}</Card.Text>
+                  <Card.Text><strong>Bersedia Kerja di:</strong> {art.willingToWork}</Card.Text>
+                  <Button variant="primary" onClick={() => handleShow(art)}>Detail Profil</Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))
+        ) : (
+          <Col>
+            <p className="text-center">Data tidak ada</p>
           </Col>
-        ))}
+        )}
       </Row>
 
       {selectedART && (

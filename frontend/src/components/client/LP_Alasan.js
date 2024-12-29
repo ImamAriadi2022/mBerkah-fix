@@ -57,7 +57,7 @@ const LP_Alasan = () => {
           </ul>
         </Col>
         <Col md={6} className={inView ? 'animate__animated animate__fadeInRight' : ''}>
-          <img src="path/to/your-image.jpg" alt="Kenapa Memilih Kami" className="img-fluid rounded" />
+          <img src="img/landing/alasan.jpg" alt="Kenapa Memilih Kami" className="img-fluid rounded hero-image" />
         </Col>
       </Row>
     </Container>

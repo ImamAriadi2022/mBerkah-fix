@@ -7,7 +7,9 @@ const CL_Navbar = () => {
   return (
     <Navbar bg="light" expand="lg" className="shadow-sm">
       <Container>
-        <Navbar.Brand href="#home" className="font-weight-bold">PT Nika Mutiara Berkah</Navbar.Brand>
+        <Navbar.Brand href="#home" className="font-weight-bold">
+          <img src="img/LogoNika.png" alt="Nika Mutiara Berkah" className="logo" />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">

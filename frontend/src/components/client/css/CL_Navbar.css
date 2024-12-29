@@ -16,6 +16,11 @@
   color: #007bff;
 }
 
+.logo{
+  width: 270px;
+  height: auto;
+}
+
 @media (max-width: 768px) {
   .navbar-brand {
     font-size: 1.2rem;

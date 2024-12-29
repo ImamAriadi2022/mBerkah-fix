@@ -1,5 +1,5 @@
 .hero-section-contact {
-  /* background-image: url('path/to/your/background-image.jpg');  */
+ /* Pastikan jalur ini benar */
   background-size: cover;
   background-position: center;
   padding: 100px 0;
@@ -10,9 +10,8 @@
 .hero-content-contact {
   max-width: 800px;
   margin: 0 auto;
-  background: rgba(0, 0, 0, 0.5);
   padding: 20px;
-  border-radius: 10px;
+
 }
 
 .hero-content-contact h1 {
@@ -20,11 +19,7 @@
   margin-bottom: 20px;
 }
 
-.hero-content-contact p {
-  font-size: 1.2rem;
-}
-
-.contact-container {
+.kontak-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 30px;

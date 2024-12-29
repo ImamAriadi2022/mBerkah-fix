@@ -41,8 +41,8 @@ const CP_Contact = () => {
 
   return (
     <>
-      <div className="hero-section-contact">
-        <div className="hero-content-contact">
+      <div className="hero-section-contact" style={{ backgroundImage: `url('/img/Contact/contact.jpg')` }}>
+        <div className="hero-content-contact px-5">
           <h1>Hubungi Kami</h1>
           <p>Kami siap membantu Anda. Silakan hubungi kami melalui kontak di bawah ini atau tinggalkan pesan Anda.</p>
         </div>

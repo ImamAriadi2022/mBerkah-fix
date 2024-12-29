@@ -25,7 +25,7 @@ const LP_TentangKami = () => {
       <h2 className="text-center mb-4">Tentang Kami</h2>
       <Row>
         <Col md={6} className="mb-4">
-          <img src="path/to/about-us-image.jpg" alt="About Us" className="img-fluid rounded" />
+          <img src="img/landing/about.jpg" alt="About Us" className="img-fluid rounded hero-image" />
         </Col>
         <Col md={6} className="text-start p-4">
           <p>
