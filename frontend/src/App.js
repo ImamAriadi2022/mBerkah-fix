@@ -4,6 +4,7 @@ import LandingPage from './pages/client/LandingPage';
 import ArtList from './pages/client/ArtList';
 import FormRegis from './pages/client/FormRegis';
 import PageGallery from './pages/client/Gallery';
+import ContactPerson from './pages/client/ContactPerson'
 
 import './App.css';
 
@@ -16,6 +17,7 @@ function App() {
           <Route exact path = "/search" element={<ArtList/>} />
           <Route exact path = "/register" element={<FormRegis/>} />
           <Route exact path = "/gallery" element={<PageGallery/>} />
+          <Route exact path = "/contact" element={<ContactPerson/>} />
           {/* Add other routes here */}
         </Routes>
       </div>

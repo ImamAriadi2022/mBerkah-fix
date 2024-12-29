@@ -20,7 +20,7 @@ const Footer = () => {
       <Container>
         <Row>
           <Col md={4} className="footer-col">
-            <h4>Agency Title</h4>
+            <h4>PT Nika Mutiara Berkah</h4>
             <div className="social-icons">
               <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
               <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer"><FaYoutube /></a>
