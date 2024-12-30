@@ -11,22 +11,6 @@ const reviews = [
     title: 'Jumlah ART Tersedia',
     value: 150,
     description: 'ART yang siap bekerja'
-  },
-  {
-    title: 'Jumlah ART Mendapatkan Pekerjaan',
-    value: 120,
-    description: 'ART yang telah ditempatkan'
-  },
-  {
-    title: 'Jumlah ART Mendaftar',
-    value: 200,
-    description: 'ART yang telah mendaftar'
-  },
-  {
-    title: 'Presentase Kepuasan Pencari ART',
-    value: 95,
-    description: 'Kepuasan pelanggan',
-    suffix: '%'
   }
 ];
 
@@ -37,9 +21,8 @@ const LP_Review = () => {
   });
 
   return (
-    <Container className="my-5 review-section" ref={ref}>
-      <h2 className="text-center mb-4">Review Customer</h2>
-      <Row>
+    <Container fluid className="my-5 review-section" ref={ref}>
+      <Row className="justify-content-center">
         {reviews.map((review, index) => (
           <Col md={3} key={index} className="mb-4">
             <Card className="h-100 text-center animate__animated animate__fadeInUp">

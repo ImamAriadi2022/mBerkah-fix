@@ -10,6 +10,7 @@ const Sidebar = () => {
           <Nav.Link href="/admin-jasa">Jasa</Nav.Link>
           <Nav.Link href="/admin-tentang">Tentang Kami</Nav.Link>
           <Nav.Link href="/admin-sertif">Sertifikat</Nav.Link>
+          <Nav.Link href="/admin-data">Data Pegawai tersedia</Nav.Link>
       </Nav>
     </div>
   );

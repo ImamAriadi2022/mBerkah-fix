@@ -14,6 +14,7 @@ import Beranda from './pages/admin/Beranda'
 import JasaSect from './pages/admin/JasaSect';
 import TentangSect from './pages/admin/TentangSect';
 import SertifSect from './pages/admin/SertifSect';
+import DataSect from './pages/admin/DataSect';
 
 import './App.css';
 
@@ -36,6 +37,7 @@ function App() {
           <Route exact path="/admin-jasa" element={<JasaSect />} />
           <Route exact path="/admin-tentang" element={<TentangSect />} />
           <Route exact path="/admin-sertif" element={<SertifSect />} />
+          <Route exact path="/admin-data" element={<DataSect />} />
           {/* Tambahkan rute lainnya di sini */}
         </Routes>
       </div>
