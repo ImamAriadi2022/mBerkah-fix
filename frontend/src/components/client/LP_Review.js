@@ -1,24 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css/animate.min.css';
 import './css/LP_Review.css';
 
-const reviews = [
-  {
-    title: 'Jumlah ART Tersedia',
-    value: 150,
-    description: 'ART yang siap bekerja'
-  }
-];
-
 const LP_Review = () => {
+  const [reviews, setReviews] = useState([]);
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1
   });
+
+  useEffect(() => {
+    fetchReviews();
+  }, []);
+
+  const fetchReviews = async () => {
+    try {
+      const response = await axios.get('https://api.mutiaraberkah.my.id/api/data/read.php');
+      if (Array.isArray(response.data)) {
+        setReviews(response.data);
+      } else {
+        console.error('Data is not an array:', response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    }
+  };
 
   return (
     <Container fluid className="my-5 review-section" ref={ref}>

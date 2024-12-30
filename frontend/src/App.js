@@ -17,6 +17,7 @@ import SertifSect from './pages/admin/SertifSect';
 import DataSect from './pages/admin/DataSect';
 import AdminRevSect from './pages/admin/AdminRevSect';
 import GalleryPage from './pages/admin/GalleryPage'
+import AdminCP from './pages/admin/AdminCP';
 
 import './App.css';
 
@@ -42,6 +43,7 @@ function App() {
           <Route exact path="/admin-data" element={<DataSect />} />
           <Route exact path="/admin-rev" element={<AdminRevSect />} />
           <Route exact path="/admin-gallery" element={<GalleryPage />} />
+          <Route exact path="/admin-cp" element={<AdminCP />} />
           {/* Tambahkan rute lainnya di sini */}
         </Routes>
       </div>

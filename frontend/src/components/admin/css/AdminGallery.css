@@ -1,0 +1,28 @@
+.admin-gallery-container {
+  margin-top: 50px;
+}
+
+.admin-gallery-container .card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-gallery-container .card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.admin-gallery-container .card-text {
+  font-size: 1rem;
+}
+
+.admin-gallery-container .btn {
+  margin-top: 10px;
+}
+
+.admin-gallery-container .modal-body {
+  padding: 20px;
+}
+
+.admin-gallery-container .form-control {
+  margin-bottom: 15px;
+}

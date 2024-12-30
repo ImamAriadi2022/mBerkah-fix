@@ -16,7 +16,7 @@ const AL_list = () => {
 
   const fetchApprovedARTs = async () => {
     try {
-      const response = await axios.get('http://localhost/mBerkah-fix/backend/api/art/read_approved.php');
+      const response = await axios.get('https://api.mutiaraberkah.my.id/api/art/read_approved.php');
       if (Array.isArray(response.data)) {
         setArts(response.data);
       } else {

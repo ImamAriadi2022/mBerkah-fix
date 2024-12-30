@@ -1,0 +1,28 @@
+.admin-contact-container {
+  margin-top: 50px;
+}
+
+.admin-contact-container .card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-contact-container .card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.admin-contact-container .card-text {
+  font-size: 1rem;
+}
+
+.admin-contact-container .btn {
+  margin-top: 10px;
+}
+
+.admin-contact-container .modal-body {
+  padding: 20px;
+}
+
+.admin-contact-container .form-control {
+  margin-bottom: 15px;
+}

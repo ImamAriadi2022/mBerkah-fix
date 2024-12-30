@@ -6,6 +6,7 @@ import LP_TentangKami from '../../components/client/LP_TentangKami';
 import LP_Review from '../../components/client/LP_Review';
 import LP_Alasan from '../../components/client/LP_Alasan';
 import Footer from '../../components/client/Footer';
+import WhatsAppButton from '../../components/client/WhatsAppButton';
 
 const LandingPage = () => {
   return (
@@ -17,6 +18,7 @@ const LandingPage = () => {
         <LP_Review />
         <LP_Alasan />
         <Footer />
+        <WhatsAppButton phoneNumber="+6282120116224" />
       {/* bisa menambahkan untuk selanjutnya*/}
     </div>
   );

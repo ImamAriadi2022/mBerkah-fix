@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Modal, Form } from 'react-bootstrap';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import './css/AdminGallery.css';
+import './css/AdminGallery.css';
 
 const AdminGallery = () => {
   const [media, setMedia] = useState([]);
@@ -22,7 +22,7 @@ const AdminGallery = () => {
 
   const fetchMedia = async () => {
     try {
-      const response = await axios.get('http://localhost/mBerkah-fix/backend/api/gallery/read_media.php');
+      const response = await axios.get('https://api.mutiaraberkah.my.id/api/gallery/read_media.php');
       if (Array.isArray(response.data)) {
         setMedia(response.data);
       } else {
@@ -34,7 +34,25 @@ const AdminGallery = () => {
   };
 
   const handleShow = (media) => {
-    setSelectedMedia(media);
+    if (media) {
+      setFormData({
+        title: media.title,
+        description: media.description,
+        type: media.type,
+        media: null,
+        thumbnail: null
+      });
+      setSelectedMedia(media);
+    } else {
+      setFormData({
+        title: '',
+        description: '',
+        type: 'video',
+        media: null,
+        thumbnail: null
+      });
+      setSelectedMedia(null);
+    }
     setShow(true);
   };
 
@@ -61,22 +79,32 @@ const AdminGallery = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost/mBerkah-fix/backend/api/gallery/create_media.php', formDataToSend, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-      console.log('Create response:', response.data);
+      let response;
+      if (selectedMedia) {
+        formDataToSend.append('id', selectedMedia.id);
+        response = await axios.post('https://api.mutiaraberkah.my.id/api/gallery/update_media.php', formDataToSend, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+      } else {
+        response = await axios.post('https://api.mutiaraberkah.my.id/api/gallery/create_media.php', formDataToSend, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+      }
+      console.log('Submit response:', response.data);
       fetchMedia();
       handleClose();
     } catch (error) {
-      console.error('Error creating media:', error);
+      console.error('Error submitting media:', error);
     }
   };
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.post('http://localhost/mBerkah-fix/backend/api/gallery/delete_media.php', { id }, {
+      const response = await axios.post('https://api.mutiaraberkah.my.id/api/gallery/delete_media.php', { id }, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -89,12 +117,12 @@ const AdminGallery = () => {
   };
 
   return (
-    <Container>
+    <Container className="admin-gallery-container">
       <Row className="justify-content-md-center">
         <Col md={8}>
-          <h1>Galeri Media Admin</h1>
-          <Button variant="primary" onClick={() => setShow(true)}>Tambah Media</Button>
-          <Row className="mt-4">
+          <h1 className="text-center mb-4">Galeri Media Admin</h1>
+          <Button variant="primary" onClick={() => handleShow(null)} className="mb-4">Tambah Media</Button>
+          <Row>
             {media.map((item) => (
               <Col md={4} key={item.id} className="mb-4">
                 <Card className="h-100 text-center">
@@ -102,6 +130,7 @@ const AdminGallery = () => {
                   <Card.Body>
                     <Card.Title>{item.title}</Card.Title>
                     <Card.Text>{item.description}</Card.Text>
+                    <Button variant="warning" onClick={() => handleShow(item)} className="mr-2">Edit</Button>
                     <Button variant="danger" onClick={() => handleDelete(item.id)}>Hapus</Button>
                   </Card.Body>
                 </Card>
@@ -140,7 +169,7 @@ const AdminGallery = () => {
               <Form.Label>Thumbnail</Form.Label>
               <Form.Control type="file" name="thumbnail" onChange={handleFileChange} required />
             </Form.Group>
-            <Button variant="primary" type="submit">Simpan</Button>
+            <Button variant="primary" type="submit" className="w-100">Simpan</Button>
           </Form>
         </Modal.Body>
       </Modal>

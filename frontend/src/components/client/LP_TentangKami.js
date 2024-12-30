@@ -1,24 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/LP_TentangKami.css';
 
 const LP_TentangKami = () => {
   const [show, setShow] = useState(false);
+  const [tentang, setTentang] = useState({});
+  const [sertifikasi, setSertifikasi] = useState([]);
+
+  useEffect(() => {
+    fetchTentang();
+    fetchSertifikasi();
+  }, []);
+
+  const fetchTentang = async () => {
+    try {
+      const response = await axios.get('https://api.mutiaraberkah.my.id/api/tentang/read.php');
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setTentang(response.data[0]);
+      } else {
+        console.error('Data tentang is not an array or is empty:', response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching tentang:', error);
+    }
+  };
+
+  const fetchSertifikasi = async () => {
+    try {
+      const response = await axios.get('https://api.mutiaraberkah.my.id/api/sertifikat/read.php');
+      if (Array.isArray(response.data)) {
+        setSertifikasi(response.data);
+      } else {
+        console.error('Data sertifikasi is not an array:', response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching sertifikasi:', error);
+    }
+  };
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const history = 'Kami didirikan pada tahun 2000 dengan tujuan menyediakan layanan asisten rumah tangga terbaik.';
-  const employees = '150';
-  const certifications = [
-    { name: 'ISO 9001', description: 'Quality management systems', image: 'path/to/iso9001.jpg' },
-    { name: 'ISO 14001', description: 'Environmental management systems', image: 'path/to/iso14001.jpg' },
-    { name: 'OHSAS 18001', description: 'Occupational health and safety management systems', image: 'path/to/ohsas18001.jpg' }
-  ];
-  const location = 'Jl. Contoh No. 123, Jakarta';
-  const googleMapLink = 'https://www.google.com/maps/place/Jl.+Contoh+No.+123,+Jakarta';
-  const googleMapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.1234567890123!2d106.12345678901234!3d-6.123456789012345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e123456789012345%3A0x123456789012345!2sJl.+Contoh+No.+123%2C+Jakarta!5e0!3m2!1sen!2sid!4v1234567890123';
 
   return (
     <Container className="my-5 tentang-kami-section" id="about">
@@ -47,18 +70,18 @@ const LP_TentangKami = () => {
           <Modal.Title>Detail Tentang Kami</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p><strong>Sejarah Perusahaan:</strong> {history}</p>
-          <p><strong>Jumlah Pegawai:</strong> {employees}</p>
+          <p><strong>Sejarah Perusahaan:</strong> {tentang.history}</p>
+          <p><strong>Jumlah Pegawai:</strong> {tentang.employees}</p>
           <p><strong>Sertifikasi:</strong></p>
-          {certifications.map((cert, index) => (
+          {sertifikasi.map((cert, index) => (
             <div key={index} className="mb-3">
-              <img src={cert.image} alt={cert.name} className="img-fluid rounded mb-2" style={{ maxWidth: '100px' }} />
+              <img src={`data:image/jpeg;base64,${cert.image}`} alt={cert.name} className="img-fluid rounded mb-2" style={{ maxWidth: '100px' }} />
               <p><strong>{cert.name}:</strong> {cert.description}</p>
             </div>
           ))}
-          <p><strong>Lokasi:</strong> <a href={googleMapLink} target="_blank" rel="noopener noreferrer">{location}</a></p>
+          <p><strong>Lokasi:</strong> <a href={tentang.google_map_link} target="_blank" rel="noopener noreferrer">{tentang.location}</a></p>
           <iframe
-            src={googleMapEmbed}
+            src={tentang.google_map_embed}
             width="100%"
             height="300"
             style={{ border: 0 }}

@@ -59,7 +59,7 @@ const FG_Regis = () => {
         }
 
         try {
-            const response = await fetch('http://localhost/mBerkah-fix/backend/api/art/create.php', {
+            const response = await fetch('https://api.mutiaraberkah.my.id/api/art/create.php', {
                 method: 'POST',
                 body: formDataToSend
             });

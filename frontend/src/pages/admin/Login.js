@@ -12,7 +12,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (username === 'admin' && password === 'admin123') {
+    if (username === 'adminMutiaraBerkah' && password === 'admin!@Mta5sdj') {
       setIsLoggedIn(true);
     } else {
       setError('Username atau password salah');

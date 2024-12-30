@@ -11,6 +11,9 @@ const Sidebar = () => {
           <Nav.Link href="/admin-tentang">Tentang Kami</Nav.Link>
           <Nav.Link href="/admin-sertif">Sertifikat</Nav.Link>
           <Nav.Link href="/admin-data">Data Pegawai tersedia</Nav.Link>
+          <Nav.Link href="/admin-rev">Review</Nav.Link>
+          <Nav.Link href="/admin-gallery">Gallery</Nav.Link>
+          <Nav.Link href="/admin-cp">Contact Person</Nav.Link>
       </Nav>
     </div>
   );

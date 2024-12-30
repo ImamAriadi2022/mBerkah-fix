@@ -1,10 +1,15 @@
 <?php
 class Database {
     private $host = "localhost";
-    private $db_name = "mberkah";
-    private $username = "root";
-    private $password = "";
+    private $db_name = "terj2475_mberkah";
+    private $username = "terj2475_terj2475";
+    private $password = "Vcc];6Qh~qZL";
     public $conn;
+
+    // nama db cpanel = terj2475_mberkah
+    // nama host = api.mutiaraberkah.my.id (atau localhost)
+    // username = terj2475_terj2475
+    // password = Vcc];6Qh~qZL
 
     public function getConnection() {
         $this->conn = null;

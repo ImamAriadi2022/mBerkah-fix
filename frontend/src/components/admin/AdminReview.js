@@ -13,7 +13,7 @@ const AdminReview = () => {
 
     const fetchRegistrations = async () => {
         try {
-            const response = await axios.get('http://localhost/mBerkah-fix/backend/api/art/read.php');
+            const response = await axios.get('https://api.mutiaraberkah.my.id/api/art/read.php');
             console.log('Response data:', response.data); // Tambahkan log ini untuk debugging
             if (Array.isArray(response.data)) {
                 setRegistrations(response.data);
@@ -27,7 +27,7 @@ const AdminReview = () => {
 
     const handleApprove = async (id) => {
         try {
-            const response = await axios.post('http://localhost/mBerkah-fix/backend/api/art/update.php', { id, status: 'approved' }, {
+            const response = await axios.post('https://api.mutiaraberkah.my.id/api/art/update.php', { id, status: 'approved' }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -41,7 +41,7 @@ const AdminReview = () => {
 
     const handleReject = async (id) => {
         try {
-            const response = await axios.post('http://localhost/mBerkah-fix/backend/api/art/update.php', { id, status: 'rejected' }, {
+            const response = await axios.post('https://api.mutiaraberkah.my.id/api/art/update.php', { id, status: 'rejected' }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -55,7 +55,7 @@ const AdminReview = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.post('http://localhost/mBerkah-fix/backend/api/art/delete.php', { id }, {
+            const response = await axios.post('https://api.mutiaraberkah.my.id/api/art/delete.php', { id }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Form, Button, Card, ListGroup, Alert } from 'react-bootstrap';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/Crud_Sertif.css';
 
 const Crud_Sertif = () => {
     const [sertifikat, setSertifikat] = useState([]);
@@ -13,7 +16,7 @@ const Crud_Sertif = () => {
 
     const fetchSertifikat = async () => {
         try {
-            const response = await axios.get('http://localhost/mBerkah-fix/backend/api/sertifikat/read.php');
+            const response = await axios.get('https://api.mutiaraberkah.my.id/api/sertifikat/read.php');
             console.log('Response data:', response.data);
             if (Array.isArray(response.data)) {
                 setSertifikat(response.data);
@@ -32,19 +35,19 @@ const Crud_Sertif = () => {
         setForm({ ...form, [name]: value });
     };
 
-      const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('name', form.name);
         formData.append('description', form.description);
         formData.append('image', form.image);
-    
+
         console.log('Submitting form data:', form.name, form.description, form.image); // Tambahkan log ini
-    
+
         try {
             if (form.id) {
                 formData.append('id', form.id);
-                const response = await axios.post('http://localhost/mBerkah-fix/backend/api/sertifikat/update.php', formData, {
+                const response = await axios.post('https://api.mutiaraberkah.my.id/api/sertifikat/update.php', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -52,7 +55,7 @@ const Crud_Sertif = () => {
                 console.log('Update response:', response.data);
                 setFeedback('Sertifikat updated successfully.');
             } else {
-                const response = await axios.post('http://localhost/mBerkah-fix/backend/api/sertifikat/create.php', formData, {
+                const response = await axios.post('https://api.mutiaraberkah.my.id/api/sertifikat/create.php', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -76,7 +79,7 @@ const Crud_Sertif = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.post('http://localhost/mBerkah-fix/backend/api/sertifikat/delete.php', { id });
+            const response = await axios.post('https://api.mutiaraberkah.my.id/api/sertifikat/delete.php', { id });
             console.log('Delete response:', response.data);
             setFeedback('Sertifikat deleted successfully.');
             fetchSertifikat();
@@ -87,37 +90,52 @@ const Crud_Sertif = () => {
     };
 
     return (
-        <div>
-            <h1>Admin Panel - Sertifikat</h1>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="name" placeholder="Name" value={form.name} onChange={handleChange} />
-                <textarea name="description" placeholder="Description" value={form.description} onChange={handleChange}></textarea>
-                <input type="file" name="image" onChange={(e) => setForm({ ...form, image: e.target.files[0] })} />
-                <button type="submit">{form.id ? 'Update Sertifikat' : 'Add Sertifikat'}</button>
-            </form>
-            {feedback && <p>{feedback}</p>}
-            {preview && (
-                <div className="preview">
-                    <h3>Preview Sertifikat</h3>
-                    <h3>{preview.name}</h3>
-                    <p>{preview.description}</p>
-                    <img src={`data:image/jpeg;base64,${preview.image}`} alt={preview.name} style={{ maxWidth: '100px' }} />
-                    <button onClick={() => handleEdit(preview)}>Edit</button>
-                    <button onClick={() => handleDelete(preview.id)}>Delete</button>
-                </div>
-            )}
-            <ul>
-                {sertifikat.map(item => (
-                    <li key={item.id}>
-                        <h3>{item.name}</h3>
-                        <p>{item.description}</p>
-                        <img src={`data:image/jpeg;base64,${item.image}`} alt={item.name} style={{ maxWidth: '100px' }} />
-                        <button onClick={() => handleEdit(item)}>Edit</button>
-                        <button onClick={() => handleDelete(item.id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <Container className="crud-sertif-container my-5">
+            <h1 className="text-center mb-4">Admin Panel - Sertifikat</h1>
+            <Row className="justify-content-center">
+                <Col md={8}>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="formName">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" name="name" placeholder="Name" value={form.name} onChange={handleChange} required />
+                        </Form.Group>
+                        <Form.Group controlId="formDescription">
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control as="textarea" name="description" placeholder="Description" value={form.description} onChange={handleChange} required />
+                        </Form.Group>
+                        <Form.Group controlId="formImage">
+                            <Form.Label>Image</Form.Label>
+                            <Form.Control type="file" name="image" onChange={(e) => setForm({ ...form, image: e.target.files[0] })} required />
+                        </Form.Group>
+                        <Button variant="primary" type="submit" className="w-100">{form.id ? 'Update Sertifikat' : 'Add Sertifikat'}</Button>
+                    </Form>
+                    {feedback && <Alert variant="info" className="mt-3">{feedback}</Alert>}
+                    {preview && (
+                        <Card className="mt-4">
+                            <Card.Header>Preview Sertifikat</Card.Header>
+                            <Card.Body>
+                                <Card.Title>{preview.name}</Card.Title>
+                                <Card.Text>{preview.description}</Card.Text>
+                                <img src={`data:image/jpeg;base64,${preview.image}`} alt={preview.name} className="img-fluid rounded mb-2" style={{ maxWidth: '100px' }} />
+                                <Button variant="warning" onClick={() => handleEdit(preview)} className="mr-2">Edit</Button>
+                                <Button variant="danger" onClick={() => handleDelete(preview.id)}>Delete</Button>
+                            </Card.Body>
+                        </Card>
+                    )}
+                    <ListGroup className="mt-4">
+                        {sertifikat.map(item => (
+                            <ListGroup.Item key={item.id}>
+                                <h5>{item.name}</h5>
+                                <p>{item.description}</p>
+                                <img src={`data:image/jpeg;base64,${item.image}`} alt={item.name} className="img-fluid rounded mb-2" style={{ maxWidth: '100px' }} />
+                                <Button variant="warning" onClick={() => handleEdit(item)} className="mr-2">Edit</Button>
+                                <Button variant="danger" onClick={() => handleDelete(item.id)}>Delete</Button>
+                            </ListGroup.Item>
+                        ))}
+                    </ListGroup>
+                </Col>
+            </Row>
+        </Container>
     );
 };
 

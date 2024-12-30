@@ -1,0 +1,24 @@
+.admin-review-container {
+  margin-top: 50px;
+}
+
+.admin-review-container .card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-review-container .card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.admin-review-container .card-text {
+  font-size: 1rem;
+}
+
+.admin-review-container .btn {
+  margin-top: 10px;
+}
+
+.admin-review-container .text-center {
+  margin-top: 20px;
+}

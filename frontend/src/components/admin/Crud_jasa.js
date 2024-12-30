@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Form, Button, Card, Alert, ListGroup } from 'react-bootstrap';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/Crud_jasa.css';
 
 const Crud_jasa = () => {
     const [services, setServices] = useState([]);
@@ -12,8 +15,8 @@ const Crud_jasa = () => {
 
     const fetchServices = async () => {
         try {
-            const response = await axios.get('http://localhost/mBerkah-fix/backend/api/jasa/read.php');
-            console.log('Response data:', response.data); // Tambahkan log ini
+            const response = await axios.get('https://api.mutiaraberkah.my.id/api/jasa/read.php');
+            console.log('Response data:', response.data);
             if (Array.isArray(response.data)) {
                 setServices(response.data);
             } else {
@@ -45,14 +48,14 @@ const Crud_jasa = () => {
         try {
             if (form.id) {
                 formData.append('id', form.id);
-                await axios.post('http://localhost/mBerkah-fix/backend/api/jasa/update.php', formData, {
+                await axios.post('https://api.mutiaraberkah.my.id/api/jasa/update.php', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
                 setFeedback('Service updated successfully.');
             } else {
-                await axios.post('http://localhost/mBerkah-fix/backend/api/jasa/create.php', formData, {
+                await axios.post('https://api.mutiaraberkah.my.id/api/jasa/create.php', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -73,7 +76,7 @@ const Crud_jasa = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.post('http://localhost/mBerkah-fix/backend/api/jasa/delete.php', { id });
+            await axios.post('https://api.mutiaraberkah.my.id/api/jasa/delete.php', { id });
             setFeedback('Service deleted successfully.');
             fetchServices();
         } catch (error) {
@@ -83,26 +86,40 @@ const Crud_jasa = () => {
     };
 
     return (
-        <div>
-            <h1>Admin Panel</h1>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="title" placeholder="Title" value={form.title} onChange={handleChange} />
-                <input type="text" name="description" placeholder="Description" value={form.description} onChange={handleChange} />
-                <input type="file" name="image" onChange={handleChange} />
-                <button type="submit">{form.id ? 'Update Service' : 'Add Service'}</button>
-            </form>
-            {feedback && <p>{feedback}</p>}
-            <ul>
-                {services.map(service => (
-                    <li key={service.id}>
-                        <img src={`data:image/jpeg;base64,${service.image}`} alt={service.title} width="100" />
-                        {service.title} - {service.description}
-                        <button onClick={() => handleEdit(service)}>Edit</button>
-                        <button onClick={() => handleDelete(service.id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <Container className="crud-jasa-container my-5">
+            <h1 className="text-center mb-4">Admin Panel - Jasa</h1>
+            <Row className="justify-content-center">
+                <Col md={8}>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="formTitle">
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control type="text" name="title" placeholder="Title" value={form.title} onChange={handleChange} required />
+                        </Form.Group>
+                        <Form.Group controlId="formDescription">
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control as="textarea" name="description" placeholder="Description" value={form.description} onChange={handleChange} required />
+                        </Form.Group>
+                        <Form.Group controlId="formImage">
+                            <Form.Label>Image</Form.Label>
+                            <Form.Control type="file" name="image" onChange={handleChange} required />
+                        </Form.Group>
+                        <Button variant="primary" type="submit" className="w-100">{form.id ? 'Update Service' : 'Add Service'}</Button>
+                    </Form>
+                    {feedback && <Alert variant="info" className="mt-3">{feedback}</Alert>}
+                    <ListGroup className="mt-4">
+                        {services.map(service => (
+                            <ListGroup.Item key={service.id}>
+                                <h5>{service.title}</h5>
+                                <p>{service.description}</p>
+                                <img src={`data:image/jpeg;base64,${service.image}`} alt={service.title} className="img-fluid rounded mb-2" style={{ maxWidth: '100px' }} />
+                                <Button variant="warning" onClick={() => handleEdit(service)} className="mr-2">Edit</Button>
+                                <Button variant="danger" onClick={() => handleDelete(service.id)}>Delete</Button>
+                            </ListGroup.Item>
+                        ))}
+                    </ListGroup>
+                </Col>
+            </Row>
+        </Container>
     );
 };
 

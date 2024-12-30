@@ -12,7 +12,7 @@ const LP_Jasa = () => {
   }, []);
 
   const fetchServices = async () => {
-    const response = await axios.get('http://localhost/mBerkah-fix/backend/api/jasa/read.php');
+    const response = await axios.get('https://api.mutiaraberkah.my.id/api/jasa/read.php');
     setServices(response.data);
   };
 

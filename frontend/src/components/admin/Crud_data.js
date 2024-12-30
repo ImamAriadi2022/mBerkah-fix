@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Form, Button, Card, ListGroup, Alert } from 'react-bootstrap';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/Crud_data.css';
 
 const Crud_data = () => {
     const [reviews, setReviews] = useState([]);
@@ -13,7 +16,7 @@ const Crud_data = () => {
 
     const fetchReviews = async () => {
         try {
-            const response = await axios.get('http://localhost/mBerkah-fix/backend/api/data/read.php');
+            const response = await axios.get('https://api.mutiaraberkah.my.id/api/data/read.php');
             console.log('Response data:', response.data);
             if (Array.isArray(response.data)) {
                 setReviews(response.data);
@@ -43,7 +46,7 @@ const Crud_data = () => {
         try {
             if (form.id) {
                 formData.id = form.id;
-                const response = await axios.post('http://localhost/mBerkah-fix/backend/api/data/update.php', formData, {
+                const response = await axios.post('https://api.mutiaraberkah.my.id/api/data/update.php', formData, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -51,7 +54,7 @@ const Crud_data = () => {
                 console.log('Update response:', response.data);
                 setFeedback('Review updated successfully.');
             } else {
-                const response = await axios.post('http://localhost/mBerkah-fix/backend/api/data/create.php', formData, {
+                const response = await axios.post('https://api.mutiaraberkah.my.id/api/data/create.php', formData, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -75,7 +78,7 @@ const Crud_data = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.post('http://localhost/mBerkah-fix/backend/api/data/delete.php', { id }, {
+            const response = await axios.post('https://api.mutiaraberkah.my.id/api/data/delete.php', { id }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -90,37 +93,52 @@ const Crud_data = () => {
     };
 
     return (
-        <div>
-            <h1>Admin Panel - Reviews</h1>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="title" placeholder="Title" value={form.title} onChange={handleChange} />
-                <input type="number" name="value" placeholder="Value" value={form.value} onChange={handleChange} />
-                <textarea name="description" placeholder="Description" value={form.description} onChange={handleChange}></textarea>
-                <button type="submit">{form.id ? 'Update Review' : 'Add Review'}</button>
-            </form>
-            {feedback && <p>{feedback}</p>}
-            {preview && (
-                <div className="preview">
-                    <h3>Preview Review</h3>
-                    <h3>{preview.title}</h3>
-                    <p>{preview.value}</p>
-                    <p>{preview.description}</p>
-                    <button onClick={() => handleEdit(preview)}>Edit</button>
-                    <button onClick={() => handleDelete(preview.id)}>Delete</button>
-                </div>
-            )}
-            <ul>
-                {reviews.map(item => (
-                    <li key={item.id}>
-                        <h3>{item.title}</h3>
-                        <p>{item.value}</p>
-                        <p>{item.description}</p>
-                        <button onClick={() => handleEdit(item)}>Edit</button>
-                        <button onClick={() => handleDelete(item.id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <Container className="crud-data-container my-5">
+            <h1 className="text-center mb-4">Admin Panel - Reviews</h1>
+            <Row className="justify-content-center">
+                <Col md={8}>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="formTitle">
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control type="text" name="title" placeholder="Title" value={form.title} onChange={handleChange} required />
+                        </Form.Group>
+                        <Form.Group controlId="formValue">
+                            <Form.Label>Value</Form.Label>
+                            <Form.Control type="number" name="value" placeholder="Value" value={form.value} onChange={handleChange} required />
+                        </Form.Group>
+                        <Form.Group controlId="formDescription">
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control as="textarea" name="description" placeholder="Description" value={form.description} onChange={handleChange} required />
+                        </Form.Group>
+                        <Button variant="primary" type="submit" className="w-100">{form.id ? 'Update Review' : 'Add Review'}</Button>
+                    </Form>
+                    {feedback && <Alert variant="info" className="mt-3">{feedback}</Alert>}
+                    {preview && (
+                        <Card className="mt-4">
+                            <Card.Header>Preview Review</Card.Header>
+                            <Card.Body>
+                                <Card.Title>{preview.title}</Card.Title>
+                                <Card.Text>{preview.value}</Card.Text>
+                                <Card.Text>{preview.description}</Card.Text>
+                                <Button variant="warning" onClick={() => handleEdit(preview)} className="mr-2">Edit</Button>
+                                <Button variant="danger" onClick={() => handleDelete(preview.id)}>Delete</Button>
+                            </Card.Body>
+                        </Card>
+                    )}
+                    <ListGroup className="mt-4">
+                        {reviews.map(item => (
+                            <ListGroup.Item key={item.id}>
+                                <h5>{item.title}</h5>
+                                <p>{item.value}</p>
+                                <p>{item.description}</p>
+                                <Button variant="warning" onClick={() => handleEdit(item)} className="mr-2">Edit</Button>
+                                <Button variant="danger" onClick={() => handleDelete(item.id)}>Delete</Button>
+                            </ListGroup.Item>
+                        ))}
+                    </ListGroup>
+                </Col>
+            </Row>
+        </Container>
     );
 };
 

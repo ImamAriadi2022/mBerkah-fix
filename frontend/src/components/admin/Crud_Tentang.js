@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Form, Button, ListGroup, Alert } from 'react-bootstrap';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/Crud_Tentang.css';
 
 const Crud_Tentang = () => {
     const [tentang, setTentang] = useState([]);
@@ -12,7 +15,7 @@ const Crud_Tentang = () => {
 
     const fetchTentang = async () => {
         try {
-            const response = await axios.get('http://localhost/mBerkah-fix/backend/api/tentang/read.php');
+            const response = await axios.get('https://api.mutiaraberkah.my.id/api/tentang/read.php');
             console.log('Response data:', response.data);
             if (Array.isArray(response.data)) {
                 setTentang(response.data);
@@ -43,7 +46,7 @@ const Crud_Tentang = () => {
         try {
             if (form.id) {
                 formData.append('id', form.id);
-                const response = await axios.post('http://localhost/mBerkah-fix/backend/api/tentang/update.php', formData, {
+                const response = await axios.post('https://api.mutiaraberkah.my.id/api/tentang/update.php', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -51,7 +54,7 @@ const Crud_Tentang = () => {
                 console.log('Update response:', response.data);
                 setFeedback('Tentang updated successfully.');
             } else {
-                const response = await axios.post('http://localhost/mBerkah-fix/backend/api/tentang/create.php', formData, {
+                const response = await axios.post('https://api.mutiaraberkah.my.id/api/tentang/create.php', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -80,7 +83,7 @@ const Crud_Tentang = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.post('http://localhost/mBerkah-fix/backend/api/tentang/delete.php', { id });
+            const response = await axios.post('https://api.mutiaraberkah.my.id/api/tentang/delete.php', { id });
             console.log('Delete response:', response.data);
             setFeedback('Tentang deleted successfully.');
             fetchTentang();
@@ -91,41 +94,60 @@ const Crud_Tentang = () => {
     };
 
     return (
-        <div>
-            <h1>Admin Panel - Tentang Kami</h1>
-            <form onSubmit={handleSubmit}>
-                <textarea name="history" placeholder="History" value={form.history} onChange={handleChange}></textarea>
-                <input type="number" name="employees" placeholder="Employees" value={form.employees} onChange={handleChange} />
-                <input type="text" name="location" placeholder="Location" value={form.location} onChange={handleChange} />
-                <input type="text" name="google_map_link" placeholder="Google Map Link" value={form.google_map_link} onChange={handleChange} />
-                <input type="text" name="google_map_embed" placeholder="Google Map Embed" value={form.google_map_embed} onChange={handleChange} />
-                <button type="submit">{form.id ? 'Update Tentang' : 'Add Tentang'}</button>
-            </form>
-            {feedback && <p>{feedback}</p>}
-            <ul>
-                {tentang.map(item => (
-                    <li key={item.id}>
-                        <h3>{item.history}</h3>
-                        <p>Employees: {item.employees}</p>
-                        <p>Location: {item.location}</p>
-                        <a href={item.google_map_link} target="_blank" rel="noopener noreferrer">Google Map Link</a>
-                        {item.google_map_embed && (
-                            <iframe
-                                src={item.google_map_embed}
-                                width="600"
-                                height="450"
-                                style={{ border: 0 }}
-                                allowFullScreen=""
-                                loading="lazy"
-                                referrerPolicy="no-referrer-when-downgrade"
-                            ></iframe>
-                        )}
-                        <button onClick={() => handleEdit(item)}>Edit</button>
-                        <button onClick={() => handleDelete(item.id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <Container className="crud-tentang-container my-5">
+            <h1 className="text-center mb-4">Admin Panel - Tentang Kami</h1>
+            <Row className="justify-content-center">
+                <Col md={8}>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="formHistory">
+                            <Form.Label>History</Form.Label>
+                            <Form.Control as="textarea" name="history" placeholder="History" value={form.history} onChange={handleChange} required />
+                        </Form.Group>
+                        <Form.Group controlId="formEmployees">
+                            <Form.Label>Employees</Form.Label>
+                            <Form.Control type="number" name="employees" placeholder="Employees" value={form.employees} onChange={handleChange} required />
+                        </Form.Group>
+                        <Form.Group controlId="formLocation">
+                            <Form.Label>Location</Form.Label>
+                            <Form.Control type="text" name="location" placeholder="Location" value={form.location} onChange={handleChange} required />
+                        </Form.Group>
+                        <Form.Group controlId="formGoogleMapLink">
+                            <Form.Label>Google Map Link</Form.Label>
+                            <Form.Control type="text" name="google_map_link" placeholder="Google Map Link" value={form.google_map_link} onChange={handleChange} required />
+                        </Form.Group>
+                        <Form.Group controlId="formGoogleMapEmbed">
+                            <Form.Label>Google Map Embed</Form.Label>
+                            <Form.Control as="textarea" name="google_map_embed" placeholder="Google Map Embed" value={form.google_map_embed} onChange={handleChange} required />
+                        </Form.Group>
+                        <Button variant="primary" type="submit" className="w-100">{form.id ? 'Update Tentang' : 'Add Tentang'}</Button>
+                    </Form>
+                    {feedback && <Alert variant="info" className="mt-3">{feedback}</Alert>}
+                    <ListGroup className="mt-4">
+                        {tentang.map(item => (
+                            <ListGroup.Item key={item.id}>
+                                <h5>{item.history}</h5>
+                                <p>Employees: {item.employees}</p>
+                                <p>Location: {item.location}</p>
+                                <a href={item.google_map_link} target="_blank" rel="noopener noreferrer">Google Map Link</a>
+                                {item.google_map_embed && (
+                                    <iframe
+                                        src={item.google_map_embed}
+                                        width="100%"
+                                        height="300"
+                                        style={{ border: 0 }}
+                                        allowFullScreen=""
+                                        loading="lazy"
+                                        title="Google Map"
+                                    ></iframe>
+                                )}
+                                <Button variant="warning" onClick={() => handleEdit(item)} className="mr-2 mt-2">Edit</Button>
+                                <Button variant="danger" onClick={() => handleDelete(item.id)} className="mt-2">Delete</Button>
+                            </ListGroup.Item>
+                        ))}
+                    </ListGroup>
+                </Col>
+            </Row>
+        </Container>
     );
 };
 

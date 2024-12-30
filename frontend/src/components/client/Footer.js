@@ -11,8 +11,8 @@ const socialLinks = {
   whatsapp: 'https://wa.me/yourwhatsappnumber'
 };
 
-const email = 'info@agency.com';
-const location = 'Jl. Contoh No. 123, Jakarta';
+const email = '082120116224';
+const location = 'RJ8R+P94 Sukasari, Kota Tangerang, Banten';
 
 const Footer = () => {
   return (
@@ -35,7 +35,7 @@ const Footer = () => {
           </Col>
           <Col md={4} className="footer-col">
             <h4>Kontak</h4>
-            <p>Email: <a href={`mailto:${email}`}>{email}</a></p>
+            <p>WhatsApp: <a href={`mailto:${email}`}>{email}</a></p>
             <p>Lokasi: {location}</p>
           </Col>
         </Row>

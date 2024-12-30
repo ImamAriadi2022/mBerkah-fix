@@ -1,127 +1,57 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { FaWhatsapp, FaPhone, FaEnvelope, FaInstagram, FaGlobe } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { FaWhatsapp, FaPhone, FaEnvelope, FaInstagram, FaGlobe, FaTiktok } from 'react-icons/fa';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/CP_Contact.css';
 
-const contactInfo = {
-  whatsapp: '+6281234567890',
-  phone: '+622123456789',
-  email: 'contact@example.com',
-  instagram: '@example',
-  website: 'www.example.com',
-  address: 'Jl. Contoh No. 123, Jakarta',
-  googleMapLink: 'https://www.google.com/maps/place/Jl.+Contoh+No.+123,+Jakarta',
-  googleMapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.1234567890123!2d106.12345678901234!3d-6.123456789012345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e123456789012345%3A0x123456789012345!2sJl.+Contoh+No.+123%2C+Jakarta!5e0!3m2!1sen!2sid!4v1234567890123'
-};
-
 const CP_Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-  });
+  const [contactInfo, setContactInfo] = useState({});
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-  };
+  useEffect(() => {
+    fetchContactInfo();
+  }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const whatsappUrl = `https://wa.me/${contactInfo.whatsapp}?text=${encodeURIComponent(
-      `Nama: ${formData.name}\nEmail: ${formData.email}\nNo HP: ${formData.phone}\nPesan: ${formData.message}`
-    )}`;
-    window.open(whatsappUrl, '_blank');
+  const fetchContactInfo = async () => {
+    try {
+      const response = await axios.get('https://api.mutiaraberkah.my.id/api/kontak/read.php');
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setContactInfo(response.data[0]);
+      } else {
+        console.error('Data is not an array or is empty:', response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching contact info:', error);
+    }
   };
 
   return (
-    <>
-      <div className="hero-section-contact" style={{ backgroundImage: `url('/img/Contact/contact.jpg')` }}>
-        <div className="hero-content-contact px-5">
-          <h1>Hubungi Kami</h1>
-          <p>Kami siap membantu Anda. Silakan hubungi kami melalui kontak di bawah ini atau tinggalkan pesan Anda.</p>
-        </div>
-      </div>
-      <Container className="my-5 contact-container">
-        <Row>
-          <Col md={6} className="text-start">
-            <h2>Kontak Kami</h2>
-            <ul className="list-unstyled">
-              <li><FaWhatsapp /> WhatsApp: <a href={`https://wa.me/${contactInfo.whatsapp}`} target="_blank" rel="noopener noreferrer">{contactInfo.whatsapp}</a></li>
-              <li><FaPhone /> Telepon: <a href={`tel:${contactInfo.phone}`}>{contactInfo.phone}</a></li>
-              <li><FaEnvelope /> Email: <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a></li>
-              <li><FaInstagram /> Instagram: <a href={`https://instagram.com/${contactInfo.instagram}`} target="_blank" rel="noopener noreferrer">{contactInfo.instagram}</a></li>
-              <li><FaGlobe /> Website: <a href={`https://${contactInfo.website}`} target="_blank" rel="noopener noreferrer">{contactInfo.website}</a></li>
-            </ul>
-            <h3>Alamat Kami</h3>
-            <p>{contactInfo.address}</p>
-            <iframe
-              src={contactInfo.googleMapEmbed}
-              width="100%"
-              height="300"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              title="Google Map"
-            ></iframe>
-          </Col>
-          <Col md={6} className="text-start">
-            <h2>Tinggalkan Pesan Disini</h2>
-            <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3">
-                <Form.Label>Nama</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>No HP</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Pesan</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={4}
-                  required
-                />
-              </Form.Group>
-              <Button variant="primary" type="submit">
-                Kirim Pesan
-              </Button>
-            </Form>
-          </Col>
-        </Row>
-      </Container>
-    </>
+    <Container>
+      <Row className="p-5">
+        <Col md={6} className="contact-info text-start">
+          <h2>Kontak Kami</h2>
+          <p><FaWhatsapp /> WhatsApp: {contactInfo.whatsapp}</p>
+          <p><FaPhone /> Phone: {contactInfo.phone}</p>
+          <p><FaEnvelope /> Email: {contactInfo.email}</p>
+          <p><FaInstagram /> Instagram: {contactInfo.instagram}</p>
+          <p><FaTiktok /> TikTok: {contactInfo.tiktok}</p>
+          <p><FaGlobe /> Website: {contactInfo.website}</p>
+          <p>Address: {contactInfo.address}</p>
+        </Col>
+        <Col md={6}>
+          <iframe
+            src={contactInfo.googleMapEmbed}
+            width="100%"
+            height="400"
+            frameBorder="0"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            aria-hidden="false"
+            tabIndex="0"
+          ></iframe>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
