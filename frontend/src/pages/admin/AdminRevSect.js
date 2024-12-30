@@ -1,7 +1,7 @@
 import React from 'react';
 import Sidebar from '../../components/admin/Sidebar';
 import AdminReview from '../../components/admin/AdminReview';
-import './css/AdminRevSect.css';
+// import './css/AdminRevSect.css';
 
 const AdminRevSect = () => {
     return (
