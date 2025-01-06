@@ -8,6 +8,8 @@ const LP_TentangKami = () => {
   const [show, setShow] = useState(false);
   const [tentang, setTentang] = useState({});
   const [sertifikasi, setSertifikasi] = useState([]);
+  const [selectedCert, setSelectedCert] = useState(null);
+  const [showCertModal, setShowCertModal] = useState(false);
 
   useEffect(() => {
     fetchTentang();
@@ -42,6 +44,13 @@ const LP_TentangKami = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleCertShow = (cert) => {
+    setSelectedCert(cert);
+    setShowCertModal(true);
+  };
+
+  const handleCertClose = () => setShowCertModal(false);
 
   return (
     <Container className="my-5 tentang-kami-section" id="about">
@@ -90,6 +99,7 @@ const LP_TentangKami = () => {
                   <div key={index} className="text-center">
                     <img src={`data:image/jpeg;base64,${cert.image}`} alt={cert.name} className="img-fluid rounded mb-2" />
                     <p>{cert.name}</p>
+                    <Button variant="primary" onClick={() => handleCertShow(cert)}>Detail Sertif</Button>
                   </div>
                 ))}
               </div>
@@ -117,6 +127,28 @@ const LP_TentangKami = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      {selectedCert && (
+        <Modal show={showCertModal} onHide={handleCertClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Detail Sertifikat</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Card>
+              <Card.Img variant="top" src={`data:image/jpeg;base64,${selectedCert.image}`} className="img-fluid rounded mb-2" />
+              <Card.Body>
+                <Card.Title>{selectedCert.name}</Card.Title>
+                <Card.Text>{selectedCert.description}</Card.Text>
+              </Card.Body>
+            </Card>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCertClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
     </Container>
   );
 };

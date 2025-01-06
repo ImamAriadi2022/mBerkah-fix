@@ -30,3 +30,11 @@ button {
 .modal-body {
   text-align: center;
 }
+
+
+.fg-regis-container {
+  min-height: 30vh; /* Setinggi layar */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
