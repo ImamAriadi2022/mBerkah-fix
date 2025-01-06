@@ -18,10 +18,10 @@ const CP_Contact = () => {
       if (Array.isArray(response.data) && response.data.length > 0) {
         setContactInfo(response.data[0]);
       } else {
-        console.error('Data is not an array or is empty:', response.data);
+        console.error('Data bukan array atau kosong:', response.data);
       }
     } catch (error) {
-      console.error('Error fetching contact info:', error);
+      console.error('Error mengambil informasi kontak:', error);
     }
   };
 
@@ -31,12 +31,12 @@ const CP_Contact = () => {
         <Col md={6} className="contact-info text-start">
           <h2>Kontak Kami</h2>
           <p><FaWhatsapp /> WhatsApp: {contactInfo.whatsapp}</p>
-          <p><FaPhone /> Phone: {contactInfo.phone}</p>
+          <p><FaPhone /> Telepon: {contactInfo.phone}</p>
           <p><FaEnvelope /> Email: {contactInfo.email}</p>
           <p><FaInstagram /> Instagram: {contactInfo.instagram}</p>
           <p><FaTiktok /> TikTok: {contactInfo.tiktok}</p>
           <p><FaGlobe /> Website: {contactInfo.website}</p>
-          <p>Address: {contactInfo.address}</p>
+          <p>Alamat: {contactInfo.address}</p>
         </Col>
         <Col md={6}>
           <iframe
@@ -48,6 +48,7 @@ const CP_Contact = () => {
             allowFullScreen=""
             aria-hidden="false"
             tabIndex="0"
+            title="Lokasi Kami"
           ></iframe>
         </Col>
       </Row>

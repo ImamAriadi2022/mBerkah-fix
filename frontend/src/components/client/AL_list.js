@@ -22,10 +22,10 @@ const AL_list = () => {
                 const filteredData = response.data.filter(reg => reg.role === filter && (searchAge === '' || reg.usia === parseInt(searchAge)));
                 setRegistrations(filteredData);
             } else {
-                console.error('Data is not an array:', response.data);
+                console.error('Data bukan array:', response.data);
             }
         } catch (error) {
-            console.error('Error fetching registrations:', error);
+            console.error('Error mengambil data pendaftaran:', error);
         }
     };
 
@@ -70,20 +70,20 @@ const AL_list = () => {
                                 <Card.Body>
                                     <Card.Title>{registration.nama}</Card.Title>
                                     <Card.Text>Usia: {registration.usia}</Card.Text>
-                                    <Button variant="primary" onClick={() => handleShow(registration)}>Detail Profile</Button>
+                                    <Button variant="primary" onClick={() => handleShow(registration)}>Detail Profil</Button>
                                 </Card.Body>
                             </Card>
                         </Col>
                     ))
                 ) : (
-                    <p className="text-center">No registrations to review.</p>
+                    <p className="text-center">Tidak ada pendaftaran untuk ditinjau.</p>
                 )}
             </Row>
 
             {selectedWorker && (
                 <Modal show={show} onHide={handleClose} dialogClassName="modal-dialog">
                     <Modal.Header closeButton>
-                        <Modal.Title>Detail Profile</Modal.Title>
+                        <Modal.Title>Detail Profil</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Card className="text-start">
@@ -106,10 +106,10 @@ const AL_list = () => {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
-                            Close
+                            Tutup
                         </Button>
                         <Button variant="primary" onClick={handleHire}>
-                            Hire Pekerja Ini
+                            Rekrut Pekerja Ini
                         </Button>
                     </Modal.Footer>
                 </Modal>
