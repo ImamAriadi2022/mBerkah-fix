@@ -27,7 +27,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         "pendidikan" => $pendidikan,
         "pengalaman" => $pengalaman,
         "skills" => json_decode($skills),
-        "foto" => base64_encode($foto)
+        "foto" => base64_encode($foto),
+        "role" => $role
     );
 
     array_push($registrations, $registration_item);

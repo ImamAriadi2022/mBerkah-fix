@@ -1,24 +1,39 @@
 .admin-review-container {
-  margin-top: 50px;
+  padding: 50px 0;
+  width: 700vh; /* 50% dari lebar layar */
+  margin-left: 300px; /* Menempel ke kanan */
 }
 
-.admin-review-container .card {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-.admin-review-container .card-title {
-  font-size: 1.25rem;
-  font-weight: bold;
+.card {
+  transition: transform 0.2s;
+  overflow: hidden;
 }
 
-.admin-review-container .card-text {
-  font-size: 1rem;
+.card:hover {
+  transform: scale(1.05);
 }
 
-.admin-review-container .btn {
-  margin-top: 10px;
+.card-img-top {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
-.admin-review-container .text-center {
-  margin-top: 20px;
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 20px;
+  }
 }

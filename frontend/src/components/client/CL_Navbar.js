@@ -14,8 +14,8 @@ const CL_Navbar = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/search">Mencari ART</Nav.Link>
-            <Nav.Link href="/register">Mendaftar ART</Nav.Link>
+            <Nav.Link href="/search">Mencari Pekerja</Nav.Link>
+            <Nav.Link href="/register">Menjadi Pekerja</Nav.Link>
             <Nav.Link href="/#about">Tentang Kami</Nav.Link>
             <Nav.Link href="/gallery">Galeri</Nav.Link>
             <Nav.Link href="/contact">Contact Us</Nav.Link>

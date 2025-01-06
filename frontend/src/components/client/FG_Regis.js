@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Form, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/FG_Regis.css';
 
 const FG_Regis = () => {
+    const [selectedRole, setSelectedRole] = useState(null);
     const [formData, setFormData] = useState({
         nama: '',
         tempatTanggalLahir: '',
@@ -17,32 +18,26 @@ const FG_Regis = () => {
         pendidikan: '',
         pengalaman: '',
         skills: [],
-        foto: null
+        foto: null,
+        role: ''
     });
-    const [feedback, setFeedback] = useState({ show: false, message: '', variant: '' });
+    const [feedback, setFeedback] = useState('');
     const [showSuccess, setShowSuccess] = useState(false);
 
+    const handleRoleSelect = (role) => {
+        setSelectedRole(role);
+        setFormData({ ...formData, role });
+    };
+
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleFileChange = (e) => {
-        setFormData({ ...formData, foto: e.target.files[0] });
-    };
-
-    const handleSkillChange = (index, value) => {
-        const newSkills = formData.skills.map((skill, i) => (i === index ? value : skill));
-        setFormData({ ...formData, skills: newSkills });
-    };
-
-    const addSkill = () => {
-        setFormData({ ...formData, skills: [...formData.skills, ''] });
-    };
-
-    const removeSkill = (index) => {
-        const newSkills = formData.skills.filter((_, i) => i !== index);
-        setFormData({ ...formData, skills: newSkills });
+        const { name, value, files } = e.target;
+        if (name === 'skills') {
+            setFormData({ ...formData, skills: value.split(',') });
+        } else if (name === 'foto') {
+            setFormData({ ...formData, foto: files[0] });
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -67,7 +62,7 @@ const FG_Regis = () => {
             const textResponse = await response.text();
             console.log('Raw server response:', textResponse);
 
-            const result = JSON.parse(textResponse); // Cobalah parsing manual
+            const result = JSON.parse(textResponse);
             console.log(result);
             setShowSuccess(true);
         } catch (error) {
@@ -75,87 +70,99 @@ const FG_Regis = () => {
         }
     };
 
-    const handleCloseSuccess = () => setShowSuccess(false);
-
     return (
-        <Container>
-            <Row className="justify-content-md-center">
-                <Col md={6}>
-                    <h1>Registration Form</h1>
-                    {feedback.show && <Alert variant={feedback.variant}>{feedback.message}</Alert>}
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="formNama">
-                            <Form.Label>Nama</Form.Label>
-                            <Form.Control type="text" name="nama" value={formData.nama} onChange={handleChange} required />
-                        </Form.Group>
-                        <Form.Group controlId="formTempatTanggalLahir">
-                            <Form.Label>Tempat Tanggal Lahir</Form.Label>
-                            <Form.Control type="text" name="tempatTanggalLahir" value={formData.tempatTanggalLahir} onChange={handleChange} required />
-                        </Form.Group>
-                        <Form.Group controlId="formUsia">
-                            <Form.Label>Usia</Form.Label>
-                            <Form.Control type="number" name="usia" value={formData.usia} onChange={handleChange} required />
-                        </Form.Group>
-                        <Form.Group controlId="formTinggi">
-                            <Form.Label>Tinggi</Form.Label>
-                            <Form.Control type="number" name="tinggi" value={formData.tinggi} onChange={handleChange} required />
-                        </Form.Group>
-                        <Form.Group controlId="formBeratBadan">
-                            <Form.Label>Berat Badan</Form.Label>
-                            <Form.Control type="number" name="beratBadan" value={formData.beratBadan} onChange={handleChange} required />
-                        </Form.Group>
-                        <Form.Group controlId="formJenisKelamin">
-                            <Form.Label>Jenis Kelamin</Form.Label>
-                            <Form.Control type="text" name="jenisKelamin" value={formData.jenisKelamin} onChange={handleChange} required />
-                        </Form.Group>
-                        <Form.Group controlId="formKewarganegaraan">
-                            <Form.Label>Kewarganegaraan</Form.Label>
-                            <Form.Control type="text" name="kewarganegaraan" value={formData.kewarganegaraan} onChange={handleChange} required />
-                        </Form.Group>
-                        <Form.Group controlId="formAgama">
-                            <Form.Label>Agama</Form.Label>
-                            <Form.Control type="text" name="agama" value={formData.agama} onChange={handleChange} required />
-                        </Form.Group>
-                        <Form.Group controlId="formStatus">
-                            <Form.Label>Status</Form.Label>
-                            <Form.Control type="text" name="status" value={formData.status} onChange={handleChange} required />
-                        </Form.Group>
-                        <Form.Group controlId="formPendidikan">
-                            <Form.Label>Pendidikan</Form.Label>
-                            <Form.Control type="text" name="pendidikan" value={formData.pendidikan} onChange={handleChange} required />
-                        </Form.Group>
-                        <Form.Group controlId="formPengalaman">
-                            <Form.Label>Pengalaman</Form.Label>
-                            <Form.Control type="text" name="pengalaman" value={formData.pengalaman} onChange={handleChange} required />
-                        </Form.Group>
-                        <h4 className="mt-4">Kemampuan</h4>
-                        {formData.skills.map((skill, index) => (
-                            <Form.Group className="mb-3" key={index}>
-                                <Row>
-                                    <Col md={10}>
-                                        <Form.Control
-                                            type="text"
-                                            value={skill}
-                                            onChange={(e) => handleSkillChange(index, e.target.value)}
-                                            placeholder={`Kemampuan ${index + 1}`}
-                                            required
-                                        />
-                                    </Col>
-                                    <Col md={2}>
-                                        <Button variant="danger" onClick={() => removeSkill(index)}>Hapus</Button>
-                                    </Col>
-                                </Row>
+        <Container className="fg-regis-container my-5">
+            {!selectedRole ? (
+                <Row className="justify-content-center">
+                    <Col md={4}>
+                        <Card className="text-center">
+                            <Card.Body>
+                                <Card.Title>Daftar ART</Card.Title>
+                                <Button variant="primary" onClick={() => handleRoleSelect('ART')}>Pilih</Button>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col md={4}>
+                        <Card className="text-center">
+                            <Card.Body>
+                                <Card.Title>Daftar Pengurus Lansia</Card.Title>
+                                <Button variant="primary" onClick={() => handleRoleSelect('Pengurus Lansia')}>Pilih</Button>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col md={4}>
+                        <Card className="text-center">
+                            <Card.Body>
+                                <Card.Title>Daftar Baby Sitter</Card.Title>
+                                <Button variant="primary" onClick={() => handleRoleSelect('Baby Sitter')}>Pilih</Button>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            ) : (
+                <Row className="justify-content-center">
+                    <Col md={8}>
+                        <h1 className="text-center mb-4">Formulir data pekerja {selectedRole}</h1>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group controlId="formNama">
+                                <Form.Label>Nama</Form.Label>
+                                <Form.Control type="text" name="nama" placeholder="Nama" value={formData.nama} onChange={handleChange} required />
                             </Form.Group>
-                        ))}
-                        <Button variant="primary" onClick={addSkill}>Tambah Kemampuan</Button>
-                        <Form.Group controlId="formFoto" className="mt-4">
-                            <Form.Label>Upload Foto</Form.Label>
-                            <Form.Control type="file" name="foto" onChange={handleFileChange} required />
-                        </Form.Group>
-                        <Button variant="primary" type="submit">Submit</Button>
-                    </Form>
-                </Col>
-            </Row>
+                            <Form.Group controlId="formTempatTanggalLahir">
+                                <Form.Label>Tempat Tanggal Lahir</Form.Label>
+                                <Form.Control type="text" name="tempatTanggalLahir" placeholder="Tempat Tanggal Lahir" value={formData.tempatTanggalLahir} onChange={handleChange} required />
+                            </Form.Group>
+                            <Form.Group controlId="formUsia">
+                                <Form.Label>Usia</Form.Label>
+                                <Form.Control type="number" name="usia" placeholder="Usia" value={formData.usia} onChange={handleChange} required />
+                            </Form.Group>
+                            <Form.Group controlId="formTinggi">
+                                <Form.Label>Tinggi</Form.Label>
+                                <Form.Control type="number" name="tinggi" placeholder="Tinggi" value={formData.tinggi} onChange={handleChange} required />
+                            </Form.Group>
+                            <Form.Group controlId="formBeratBadan">
+                                <Form.Label>Berat Badan</Form.Label>
+                                <Form.Control type="number" name="beratBadan" placeholder="Berat Badan" value={formData.beratBadan} onChange={handleChange} required />
+                            </Form.Group>
+                            <Form.Group controlId="formJenisKelamin">
+                                <Form.Label>Jenis Kelamin</Form.Label>
+                                <Form.Control type="text" name="jenisKelamin" placeholder="Jenis Kelamin" value={formData.jenisKelamin} onChange={handleChange} required />
+                            </Form.Group>
+                            <Form.Group controlId="formKewarganegaraan">
+                                <Form.Label>Kewarganegaraan</Form.Label>
+                                <Form.Control type="text" name="kewarganegaraan" placeholder="Kewarganegaraan" value={formData.kewarganegaraan} onChange={handleChange} required />
+                            </Form.Group>
+                            <Form.Group controlId="formAgama">
+                                <Form.Label>Agama</Form.Label>
+                                <Form.Control type="text" name="agama" placeholder="Agama" value={formData.agama} onChange={handleChange} required />
+                            </Form.Group>
+                            <Form.Group controlId="formStatus">
+                                <Form.Label>Status</Form.Label>
+                                <Form.Control type="text" name="status" placeholder="Status" value={formData.status} onChange={handleChange} required />
+                            </Form.Group>
+                            <Form.Group controlId="formPendidikan">
+                                <Form.Label>Pendidikan</Form.Label>
+                                <Form.Control type="text" name="pendidikan" placeholder="Pendidikan" value={formData.pendidikan} onChange={handleChange} required />
+                            </Form.Group>
+                            <Form.Group controlId="formPengalaman">
+                                <Form.Label>Pengalaman</Form.Label>
+                                <Form.Control as="textarea" name="pengalaman" placeholder="Pengalaman" value={formData.pengalaman} onChange={handleChange} required />
+                            </Form.Group>
+                            <Form.Group controlId="formSkills">
+                                <Form.Label>Kemampuan</Form.Label>
+                                <Form.Control type="text" name="skills" placeholder="Kemampuan (pisahkan dengan koma)" value={formData.skills.join(',')} onChange={handleChange} required />
+                            </Form.Group>
+                            <Form.Group controlId="formFoto">
+                                <Form.Label>Foto</Form.Label>
+                                <Form.Control type="file" name="foto" onChange={handleChange} required />
+                            </Form.Group>
+                            <Button variant="primary" type="submit" className="w-100">Submit</Button>
+                        </Form>
+                        {feedback && <Alert variant="info" className="mt-3">{feedback}</Alert>}
+                        {showSuccess && <Alert variant="success" className="mt-3">Pendaftaran berhasil!</Alert>}
+                    </Col>
+                </Row>
+            )}
         </Container>
     );
 };

@@ -20,6 +20,7 @@ $pendidikan = $_POST['pendidikan'] ?? null;
 $pengalaman = $_POST['pengalaman'] ?? null;
 $skills = json_encode($_POST['skills'] ?? []);
 $foto = isset($_FILES['foto']) ? file_get_contents($_FILES['foto']['tmp_name']) : null;
+$role = $_POST['role'] ?? null;
 
 $query = "INSERT INTO art_registrations SET 
     nama=:nama, 
@@ -34,7 +35,8 @@ $query = "INSERT INTO art_registrations SET
     pendidikan=:pendidikan, 
     pengalaman=:pengalaman, 
     skills=:skills, 
-    foto=:foto";
+    foto=:foto,
+    role=:role";
 
 $stmt = $db->prepare($query);
 
@@ -51,6 +53,7 @@ $stmt->bindParam(":pendidikan", $pendidikan);
 $stmt->bindParam(":pengalaman", $pengalaman);
 $stmt->bindParam(":skills", $skills);
 $stmt->bindParam(":foto", $foto);
+$stmt->bindParam(":role", $role);
 
 if($stmt->execute()) {
     echo json_encode(array("message" => "Registration was created."));

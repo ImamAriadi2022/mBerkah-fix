@@ -2,23 +2,6 @@
   padding: 0;
 }
 
-.sidebar {
-  background-color: #f8f9fa;
-  height: 100vh;
-  padding-top: 20px;
-}
-
-.sidebar .nav-link {
-  color: #000;
-  font-weight: bold;
-  padding: 10px 20px;
-}
-
-.sidebar .nav-link:hover {
-  background-color: #e9ecef;
-  color: #007bff;
-}
-
 .main-content {
   padding: 20px;
 }

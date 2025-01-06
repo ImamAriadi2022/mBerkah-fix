@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
+import { Container, Row, Col, Button, Modal, Card } from 'react-bootstrap';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/LP_TentangKami.css';
@@ -70,25 +70,46 @@ const LP_TentangKami = () => {
           <Modal.Title>Detail Tentang Kami</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p><strong>Sejarah Perusahaan:</strong> {tentang.history}</p>
-          <p><strong>Jumlah Pegawai:</strong> {tentang.employees}</p>
-          <p><strong>Sertifikasi:</strong></p>
-          {sertifikasi.map((cert, index) => (
-            <div key={index} className="mb-3">
-              <img src={`data:image/jpeg;base64,${cert.image}`} alt={cert.name} className="img-fluid rounded mb-2" style={{ maxWidth: '100px' }} />
-              <p><strong>{cert.name}:</strong> {cert.description}</p>
-            </div>
-          ))}
-          <p><strong>Lokasi:</strong> <a href={tentang.google_map_link} target="_blank" rel="noopener noreferrer">{tentang.location}</a></p>
-          <iframe
-            src={tentang.google_map_embed}
-            width="100%"
-            height="300"
-            style={{ border: 0 }}
-            allowFullScreen=""
-            loading="lazy"
-            title="Google Map"
-          ></iframe>
+          <Card className="mb-4">
+            <Card.Body>
+              <Card.Title>Sejarah Perusahaan</Card.Title>
+              <Card.Text>{tentang.history}</Card.Text>
+            </Card.Body>
+          </Card>
+          <Card className="mb-4">
+            <Card.Body>
+              <Card.Title>Jumlah Pegawai</Card.Title>
+              <Card.Text>{tentang.employees}</Card.Text>
+            </Card.Body>
+          </Card>
+          <Card className="mb-4">
+            <Card.Body>
+              <Card.Title>Sertifikasi</Card.Title>
+              <div className="cert-grid">
+                {sertifikasi.map((cert, index) => (
+                  <div key={index} className="text-center">
+                    <img src={`data:image/jpeg;base64,${cert.image}`} alt={cert.name} className="img-fluid rounded mb-2" />
+                    <p>{cert.name}</p>
+                  </div>
+                ))}
+              </div>
+            </Card.Body>
+          </Card>
+          <Card className="mb-4">
+            <Card.Body>
+              <Card.Title>Lokasi</Card.Title>
+              <p><a href={tentang.google_map_link} target="_blank" rel="noopener noreferrer">{tentang.location}</a></p>
+              <iframe
+                src={tentang.google_map_embed}
+                width="100%"
+                height="300"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                title="Google Map"
+              ></iframe>
+            </Card.Body>
+          </Card>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

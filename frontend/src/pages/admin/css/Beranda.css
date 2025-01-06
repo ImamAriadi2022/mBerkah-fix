@@ -7,14 +7,6 @@
 
 .sidebar {
   width: 250px; /* Tentukan lebar tetap sidebar */
-  background-color: #343a40; /* Warna sidebar */
-  color: white;
-  padding: 15px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  z-index: 1000;
 }
 
 .dashboard {

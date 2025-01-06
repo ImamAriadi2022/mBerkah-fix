@@ -13,5 +13,6 @@ CREATE TABLE art_registrations (
     pengalaman TEXT NOT NULL,
     skills TEXT NOT NULL,
     foto LONGBLOB NOT NULL,
+    role VARCHAR(50) NOT NULL,
     is_published BOOLEAN DEFAULT FALSE
 );

@@ -22,7 +22,7 @@ const LP_Jasa = () => {
       <Row>
         {services.map((service, index) => (
           <Col md={4} key={index} className="mb-4">
-            <Card className="h-100">
+            <Card className="text-center">
               <Card.Img variant="top" src={`data:image/jpeg;base64,${service.image}`} alt={service.title} />
               <Card.Body>
                 <Card.Title>{service.title}</Card.Title>

@@ -1,5 +1,6 @@
 .card {
   transition: transform 0.2s;
+  overflow: hidden;
 }
 
 .card:hover {
@@ -7,6 +8,7 @@
 }
 
 .card-img-top {
-  height: 200px;
-  object-fit: cover;
+  width: 100%;
+  height: auto; /* Atur tinggi gambar secara otomatis */
+  object-fit: contain; /* Pastikan gambar tampil sepenuhnya tanpa terpotong */
 }
